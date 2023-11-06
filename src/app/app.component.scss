@@ -1,0 +1,60 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+.px-3{
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.skeletoncontainer{
+    border: 1px solid black;
+    width: 100%;
+    margin-top: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+    height:100vh;
+}
+
+.container{
+    border: 1px solid black;
+    width: 140%;
+    margin-top: 1rem;
+    margin-right: 0rem;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+   
+    
+
+}
+.w-10{
+    width:12rem;
+
+}
+.h-10{
+    height: 12rem;
+}
+.row{
+  
+    display: flex;
+    flex-direction: row;
+    gap: 4rem;
+    margin-top: 2rem;
+    margin-left: 2rem;
+}
+
+
+@media (max-width: 768px) {
+    .row{
+        display: flex;
+        flex-direction: column;
+        gap: 4rem;
+        margin-top: 2rem;
+        margin-left: 2rem;
+    }
+
+    }
+
+    

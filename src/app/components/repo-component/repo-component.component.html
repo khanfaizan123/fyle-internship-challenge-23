@@ -1,0 +1,24 @@
+<div class="container"  (click)="gotorepo()">
+    <h1 style="margin-left: 0.5rem; font-size: 20px; color: blue">
+      {{ name }}
+    </h1>
+  
+    <p style="margin-left: 0.5rem; font-size: 14px">{{ description }}</p>
+  
+    <div style="display: flex;flex-wrap:wrap; margin-left: 0.5rem; font-size: 14px; gap: 0.5rem">
+      <p
+        *ngFor="let item of topics"
+        style="
+          background: blue;
+          color: white;
+          height: 1.5rem;
+          width: max-content;
+          text-align: center;
+          width: 5rem;
+        "
+      >
+        {{ item }}
+      </p>
+    </div>
+  </div>
+  
