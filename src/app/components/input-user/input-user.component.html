@@ -1,0 +1,25 @@
+
+
+
+  <h2 mat-dialog-title>Provide username</h2>
+    <mat-dialog-content class="mat-typography ">
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          
+          <input
+            matInput
+            #inputElement
+            placeholder="Ex. Johnpapa"
+            (change)="changeusername(inputElement)"
+          />
+        </mat-form-field>
+      </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button style="border:1px solid" [mat-dialog-close]="this.username">Click here</button>
+    </mat-dialog-actions>
+
+
+
+
+

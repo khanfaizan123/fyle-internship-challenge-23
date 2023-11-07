@@ -1,9 +1,17 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { MatDialogModule,MatDialog} from '@angular/material/dialog';
+
+import {MatFormFieldModule} from '@angular/material/form-field';
+
+
+import { HttpClientModule } from '@angular/common/http';
+import { InputUserComponent } from './components/input-user/input-user.component';
 
 describe('AppComponent', () => {
   beforeEach(() => TestBed.configureTestingModule({
-    declarations: [AppComponent]
+    declarations: [AppComponent],
+    imports: [HttpClientModule,MatDialogModule,MatFormFieldModule]
   }));
 
   it('should create the app', () => {
@@ -20,7 +28,7 @@ describe('AppComponent', () => {
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
+    fixture.detectChanges(); 
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('.content span')?.textContent).toContain('fyle-frontend-challenge app is running!');
   });
