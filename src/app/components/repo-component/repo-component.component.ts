@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
 @Component({
   selector: 'app-repo-component',
   templateUrl: './repo-component.component.html',
@@ -14,13 +13,12 @@ export class RepoComponentComponent implements OnInit {
   @Input() topics:any[]=[];
   @Output() goToRepoEvent: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private router:Router){
+  constructor(){
 
   }
   
   ngOnInit(): void {
-      // console.log("yhan hai",this.name,this.description,this.html_url,this.topics);
-       
+     
   }
 
   gotorepo(){

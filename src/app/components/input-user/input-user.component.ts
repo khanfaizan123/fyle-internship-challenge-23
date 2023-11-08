@@ -1,6 +1,5 @@
-import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ApiService } from 'src/app/services/api.service';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+
 @Component({
   selector: 'app-input-user',
   templateUrl: './input-user.component.html',
@@ -11,7 +10,7 @@ export class InputUserComponent {
   username: string = '';
   @ViewChild('inputElement') inputElement!: ElementRef;
 
-  constructor(private api: ApiService) {}
+  constructor() {}
   changeusername($event: any) {
     const inputValue = this.inputElement.nativeElement.value;
 

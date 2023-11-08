@@ -30,7 +30,7 @@ export class AppComponent implements OnInit,OnDestroy {
 
   openDialog() {
     let dialogRef = this.dialog.open(InputUserComponent, {
-      height:'200px',
+      height:'300px',
       width: '300px',
       
       panelClass:"dialog-flex" 

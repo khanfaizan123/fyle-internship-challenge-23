@@ -33,6 +33,28 @@ You will hear back within 48 hours from us via email.
 * Install angular cli [Ref](https://angular.io/cli)
 * `npm install` in this repository 
 
+## test run
+* run `ng test`  for a test server.
+
+## Angular material
+
+* install using npm install @angular/material.
+* used  angular material components by importing in app.module.ts file  (i used matdialog,matinput).
+
+## Tailwind css
+* support provided by your side for tailwind css.
+* i used pagination ui component from tailwind.
+* page numbers from 1 to 9 and forward and backward button to go next and previous page respectively.
+
+
+## About Project Ui
+
+* When you open project for each  first time  you see a provide username dialogbox .
+* provide username of github profile and then if name exists on github it shows github repos and user details on the other ui.
+
+
+
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.

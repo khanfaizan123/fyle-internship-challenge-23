@@ -20,7 +20,7 @@
 
 .container{
     border: 1px solid black;
-    width: 140%;
+    
     margin-top: 1rem;
     margin-right: 0rem;
     margin-bottom: 1rem;
@@ -82,3 +82,10 @@
     align-items: center;
   }
     
+
+.title{
+    text-align: center;
+    font-size:18px;
+    font-family: sans-serif;
+    font-weight:bold;
+}  
