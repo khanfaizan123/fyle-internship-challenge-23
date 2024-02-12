@@ -49,7 +49,7 @@ You will hear back within 48 hours from us via email.
 
 ## About Project Ui
 
-* When you open project for each  first time  you see a provide username dialogbox .
+
 * provide username of github profile and then if name exists on github it shows github repos and user details on the other ui.
 
 
