@@ -1,7 +1,6 @@
-import { Component, OnInit,OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { ApiService } from './services/api.service';
-import { MatDialog } from '@angular/material/dialog';
-import { InputUserComponent } from './components/input-user/input-user.component';
+
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -9,7 +8,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit,OnDestroy {
+export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   title = 'fyle-frontend-challenge';
   private subscription!: Subscription;
   name: string = '';
@@ -18,51 +17,59 @@ export class AppComponent implements OnInit,OnDestroy {
   location: string = '';
   twitter_name: string = '';
   bio: string = '';
-  username: string = '';
+  username: string = 'johnpapa';
+  tot: any[] = [];
 
   // Pagination parameters
   currentPage = 1;
+
   itemsPerPage: number = 10;
 
-  constructor(private apiService: ApiService, public dialog: MatDialog) {
-    this.openDialog();
-  }
-
-  openDialog() {
-    let dialogRef = this.dialog.open(InputUserComponent, {
-      height:'300px',
-      width: '300px',
-      
-      panelClass:"dialog-flex" 
-     
-    });
+  constructor(private apiService: ApiService) {
     
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
-      this.username = result;
-      if (this.username == '') {
-        alert('No match found for this username on github please type again');
-        this.openDialog();
-      } else {
-        this.loadRepositories(
-          this.currentPage,
-          this.itemsPerPage,
-          this.username
-        );
-        this.getuserdetails(this.username);
-      }
-    });
+    this.getuserdetails(this.username);
+    // this.initializePagination();
   }
-
+  ngAfterViewInit(): void {}
+  totalrepos: number = 0;
+  showrepodata:boolean=false;
   getuserdetails(username: any) {
-    this.apiService.getUser(username).subscribe((result: any) => {
-      (this.name = result.name),
-        (this.url = result.html_url),
-        (this.avatar_url = result.avatar_url),
-        (this.location = result.location),
-        (this.bio = result.bio),
-        (this.twitter_name = result.twitter_username);
-    });
+    this.apiService.getUser(username).subscribe(
+      (result: any) => {
+        console.log(result);
+        if (result) {
+          this.showrepodata = true;
+          this.totalrepos = parseInt(result.public_repos);
+          this.name = result.name;
+          this.url = result.html_url;
+          this.avatar_url = result.avatar_url;
+          this.location = result.location;
+          this.bio = result.bio;
+          this.twitter_name = result.twitter_username;
+          this.loadRepositories(this.currentPage, this.itemsPerPage, this.username);
+          this.initializePagination();
+        } else {
+          // User not found, handle this case if needed
+        }
+      },
+      (error) => {
+        console.error("An error occurred:", error);
+        this.showrepodata = false;
+        alert("No such user exists please type again");
+         // Hide user details section
+      }
+    );
+  }
+  
+
+  async initializePagination() {
+    this.tot = [];
+    this.countpage = Math.ceil(this.totalrepos / this.itemsPerPage);
+
+    for (let i = 1; i <= this.countpage; i++) {
+      await this.tot.push(i);
+    }
+    console.log(this.tot);
   }
 
   reposarray: any[] = [];
@@ -70,27 +77,30 @@ export class AppComponent implements OnInit,OnDestroy {
 
   ngOnInit() {}
   previouspage: number = 0;
-  loadRepositories(currentPage: any, itemsPerPage: any, username: any) {
+
+  getvalue() {}
+
+  async loadRepositories(currentPage: any, itemsPerPage: any, username: any) {
     // Call your API service to fetch paginated repositories
+    console.log('current page yha h', currentPage);
+    this.currentPage = currentPage;
     this.reposarray = [];
-    this.subscription=this.apiService
+    this.subscription = await this.apiService
       .getPaginatedRepositories(currentPage, itemsPerPage, username)
       .subscribe((result: any) => {
         console.log(result.length);
         if (result.length == 0) {
-          alert('No more repos found');
-
           this.loadRepositories(this.previouspage, itemsPerPage, username);
+          this.previouspage = 0;
         } else {
           for (let i = 0; i < result.length; i++) {
             if (result[i].visibility == 'public') {
               const abc: repo = {
-                name: result[i].name,
-                description: result[i].description,
-                topics: result[i].topics,
-                html_url: result[i].html_url,
+                name: result.at(i).name,
+                description: result.at(i).description,
+                topics: result.at(i).topics,
+                html_url: result.at(i).html_url,
               };
-
               this.previouspage = this.currentPage;
               this.reposarray.push(abc);
             }
@@ -105,11 +115,21 @@ export class AppComponent implements OnInit,OnDestroy {
       this.loadRepositories(this.currentPage, this.itemsPerPage, this.username);
     }
   }
-
+  countpage: number = 0;
   // Function to load the next page
   loadNextPage() {
-    this.currentPage++;
-    this.loadRepositories(this.currentPage, this.itemsPerPage, this.username);
+    // Calculate the total number of pages based on the total number of repositories and items per page.
+    console.log(this.countpage); // Output the total number of pages to the console.
+
+    // Check if there are more pages to load.
+    if (this.currentPage < this.countpage) {
+      // If the current page is less than the total number of pages...
+      this.currentPage++; // Increment the current page number.
+      // Call the loadRepositories function to load the repositories for the next page.
+      this.loadRepositories(this.currentPage, this.itemsPerPage, this.username);
+    } else {
+      alert('no page found ');
+    }
   }
 
   changeItemsPerPage() {
@@ -119,10 +139,11 @@ export class AppComponent implements OnInit,OnDestroy {
 
     // Reload the first page with the new itemsPerPage value
     this.loadRepositories(this.currentPage, this.itemsPerPage, this.username);
+    this.initializePagination();
   }
 
   onGoToRepo($event: any) {
-    console.log($event, 'yha se aa rha h');
+    console.log($event);
     window.open($event);
   }
 

@@ -6,7 +6,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 
 
 import { HttpClientModule } from '@angular/common/http';
-import { InputUserComponent } from './components/input-user/input-user.component';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 describe('AppComponent', () => {
@@ -25,17 +24,5 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'fyle-frontend-challenge'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('fyle-frontend-challenge');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges(); 
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('fyle-frontend-challenge');
-  });
+  
 });

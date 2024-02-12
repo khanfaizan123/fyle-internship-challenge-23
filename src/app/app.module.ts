@@ -9,13 +9,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { HttpClient, HttpClientModule } from  '@angular/common/http';
 import { RepoComponentComponent } from './components/repo-component/repo-component.component';
-import { InputUserComponent } from './components/input-user/input-user.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RepoComponentComponent,
-    InputUserComponent
+    
   
     
   ],
